@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Pojisteni.Data;
+using Pojisteni.DataAccess.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +38,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area=Zakaznik}/{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();

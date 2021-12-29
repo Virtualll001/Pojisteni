@@ -1,4 +1,4 @@
-namespace Pojisteni.Models
+namespace Pojisteni.Models.ViewModels
 {
     public class ErrorViewModel
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Pojisteni.Data
+namespace Pojisteni.DataAccess.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

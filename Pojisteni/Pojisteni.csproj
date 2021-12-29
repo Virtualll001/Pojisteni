@@ -15,4 +15,14 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Pojisteni.DataAccess\Pojisteni.DataAccess.csproj" />
+    <ProjectReference Include="..\Pojisteni.Models\Pojisteni.Models.csproj" />
+    <ProjectReference Include="..\Pojisteni.Utility\Pojisteni.Utility.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Controllers\" />
+  </ItemGroup>
+
 </Project>

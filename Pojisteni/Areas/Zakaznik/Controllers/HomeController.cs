@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Pojisteni.Models;
+using Pojisteni.Models.ViewModels;
 using System.Diagnostics;
 
-namespace Pojisteni.Controllers
+namespace Pojisteni.Areas.Zakaznik.Controllers
 {
+    [Area("Zakaznik")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -18,7 +20,7 @@ namespace Pojisteni.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Projekt()
         {
             return View();
         }
