@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Pojisteni.Models;
 
 namespace Pojisteni.DataAccess.Data
 {
@@ -9,5 +10,9 @@ namespace Pojisteni.DataAccess.Data
             : base(options)
         {
         }
+
+        public DbSet<Kategorie> Kategories { get; set; }
+        public DbSet<Pojistka> Pojistky { get; set; }
+
     }
 }

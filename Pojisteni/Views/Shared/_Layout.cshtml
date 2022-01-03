@@ -7,6 +7,9 @@
     <meta name="description" content="Cvičná aplikace pro evidenci pojištění a pojistných událostí v .NET 6" />
 
     <title>@ViewData["Title"] Pojištění</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     @*<link rel="stylesheet" href="~/Pojisteni.styles.css" asp-append-version="true" />*@
@@ -21,9 +24,20 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">                       
+                    <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="Zakaznik" asp-controller="Home" asp-action="Projekt">Projekt</a>
+                            <a class="nav-link" asp-area="Zakaznik" asp-controller="Home" asp-action="Projekt">O projektu</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Obsah</a>
+                            <div class="dropdown-menu">                               
+                                <a class="dropdown-item" asp-area="" asp-controller="" asp-action="Index">Pojistník</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="" asp-action="Index">Událost</a>
+                                <div class="dropdown-divider"></div>
+                                 <a class="dropdown-item text-primary" asp-area="Admin" asp-controller="Pojistka" asp-action="Index">Pjištění</a>
+                                <a class="dropdown-item text-primary" asp-area="Admin" asp-controller="Kategorie" asp-action="Index">Typy pojištění</a>
+                                <a class="dropdown-item text-primary" asp-area="Identity" asp-page="/Account/Register">Vytvořit pojistníka</a>
+                            </div>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -39,13 +53,18 @@
 
     <footer class="border-top footer text-white">
         <div class="container">
-            &copy; 2021 - Mlázovská - rekvalifikace <a href="https://www.itnetwork.cz/prace-a-podnikani-v-it/rekvalifikacni-kurzy/rekvalifikacni-kurzy-csharp-net/" target="_blank">ITnetwork</a>
+            &copy; 2021 - Mlázovská - rekvalifikace &nbsp; <a href="https://www.itnetwork.cz/prace-a-podnikani-v-it/rekvalifikacni-kurzy/rekvalifikacni-kurzy-csharp-net/" target="_blank">ITnetwork</a>
         </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://kit.fontawesome.com/a3bc74e4a9.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
