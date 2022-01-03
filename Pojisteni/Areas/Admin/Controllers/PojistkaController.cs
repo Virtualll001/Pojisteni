@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dapper;
+using Microsoft.AspNetCore.Mvc;
 using Pojisteni.DataAccess.Repository.IRepository;
 using Pojisteni.Models;
+using Pojisteni.Utility;
 
 namespace Pojisteni.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class PojistkaController : Controller
     {
+        //upravené na Stored Procedures! (viz migrace)
+        //v poznámkách je verze bez SP
         private readonly IUnitOfWork _unitOfWork;
         public PojistkaController(IUnitOfWork unitOfWork)
         {
@@ -22,13 +26,15 @@ namespace Pojisteni.Areas.Admin.Controllers
         {
             Pojistka pojistka = new Pojistka();
             if (id == null)
-            {
-                //CREATE
+            {                
                 return View(pojistka);
             }
-            //EDIT
-            pojistka = _unitOfWork.Pojistka.Get(id.GetValueOrDefault());
-            if(pojistka == null)
+
+            var parameter = new DynamicParameters();
+            parameter.Add("@PojisteniId", id);           
+            pojistka = _unitOfWork.SP_Call.OneRecord<Pojistka>(SD.Proc_Pojistka_Get, parameter);
+            //pojistka = _unitOfWork.Pojistka.Get(id.GetValueOrDefault());
+            if (pojistka == null)
             {
                 return NotFound();
             }
@@ -42,16 +48,23 @@ namespace Pojisteni.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(pojistka.PojisteniId == 0)
+                var parameter = new DynamicParameters();
+                parameter.Add("@Podminky", pojistka.Podminky);
+
+                if (pojistka.PojisteniId == 0)
                 {
-                    _unitOfWork.Pojistka.Add(pojistka);                   
+                    //_unitOfWork.Pojistka.Add(pojistka);
+                    _unitOfWork.SP_Call.Execute(SD.Proc_Pojistka_Create, parameter);
+
                 }
                 else
                 {
-                    _unitOfWork.Pojistka.Update(pojistka);                    
+                    parameter.Add("@PojisteniId", pojistka.PojisteniId);
+                    _unitOfWork.SP_Call.Execute(SD.Proc_Pojistka_Update, parameter);
+                    //_unitOfWork.Pojistka.Update(pojistka);                    
                 }
                 _unitOfWork.Save();
-                return RedirectToAction(nameof(Index)); //ne Magic String "Index"
+                return RedirectToAction(nameof(Index));
             }
             return View(pojistka);
         }
@@ -62,19 +75,24 @@ namespace Pojisteni.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var allObj = _unitOfWork.Pojistka.GetAll();
-            return Json(new {data = allObj});
+            //var allObj = _unitOfWork.Pojistka.GetAll();   
+            var allObj = _unitOfWork.SP_Call.List<Pojistka>(SD.Proc_Pojistka_GetAll,null);
+            return Json(new { data = allObj });
         }
 
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            var objFromDb = _unitOfWork.Pojistka.Get(id);
+            var parameter = new DynamicParameters();
+            parameter.Add("@PojisteniId", id);
+            //var objFromDb = _unitOfWork.Pojistka.Get(id);
+            var objFromDb = _unitOfWork.SP_Call.OneRecord<Pojistka>(SD.Proc_Pojistka_Get, parameter);
             if(objFromDb == null)
             {
                 return Json(new { success = false, message = "Mazání se nezdařilo" });
             }
-            _unitOfWork.Pojistka.Remove(objFromDb);
+            //_unitOfWork.Pojistka.Remove(objFromDb);
+            _unitOfWork.SP_Call.Execute(SD.Proc_Pojistka_Delete, parameter);
             _unitOfWork.Save();
             return Json(new { success = true, message = "Pojištění bylo úspěšně odstraněno" });
         }
