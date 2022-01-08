@@ -163,28 +163,28 @@ function loadDataTable() {
 
 
         "ajax": {
-            "url": "/Admin/Pojistka/GetAll"
+            "url": "/Admin/Pojistnik/GetAll"
         },
         "columns": [
-            { "data": "nazev", "width": "15%" },
-            { "data": "podminky", "width": "30%" },
-            { "data": "zaloha", "width": "10%" },
-            { "data": "imageUrl", "width": "15%" },
-            { "data": "kategorie.typ", "width": "15%" },  //typSeznam?
+            { "data": "jmeno", "width": "15%" },
+            { "data": "prijmeni", "width": "15%" },
+            { "data": "adresa", "width": "25%" },
+            { "data": "telefonCislo", "width": "15%" },
+            { "data": "pojistka.nazev", "width": "10%" },
             {
-                "data": "pojisteniId",
+                "data": "pojistnikId",
                 "render": function (data) {
                     return `
                             <div class="text-center">
-                                <a href="/Admin/Pojistka/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
+                                <a href="/Admin/Pojistnik/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a onclick=Delete("/Admin/Pojistka/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
+                                <a onclick=Delete("/Admin/Pojistnik/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </div>
                             `;
-                }, "width": "15%"
+                }, "width": "20%"
             }
         ]
     });
@@ -192,7 +192,7 @@ function loadDataTable() {
 
 function Delete(url) {
     swal({
-        title: "Určitě chcete toto pojištění smazat?",
+        title: "Určitě chcete tuto kategorii smazat?",
         text: "Data nebude možné obnovit!",
         icon: "warning",
         buttons: true,

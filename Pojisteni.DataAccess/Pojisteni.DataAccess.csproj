@@ -18,10 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Migrations\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Pojisteni.Models\Pojisteni.Models.csproj" />
     <ProjectReference Include="..\Pojisteni.Utility\Pojisteni.Utility.csproj" />
   </ItemGroup>

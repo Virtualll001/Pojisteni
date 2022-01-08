@@ -201,4 +201,8 @@ body {
 }
 
 /*MOJE CSS*/
-
+#pojistkaImg{
+    border-radius:5px;
+    border: 1px; 
+    width: 100%;
+}

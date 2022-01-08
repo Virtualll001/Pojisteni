@@ -17,11 +17,13 @@ namespace Pojisteni.DataAccess.Repository
             SP_Call = new SP_Call(_db);
             Kategorie = new KategorieRepository(_db);
             Pojistka = new PojistkaRepository(_db);
+            Pojistnik = new PojistnikRepository(_db);
         }
 
         public ISP_Call SP_Call { get; private set; }
         public IKategorieRepository Kategorie { get; private set; } 
         public IPojistkaRepository Pojistka { get; private set; }
+        public IPojistnikRepository Pojistnik { get; private set; }
 
         public void Dispose()
         {

@@ -21,8 +21,15 @@ namespace Pojisteni.DataAccess.Repository
             var objFromDb = _db.Pojistky.FirstOrDefault(s => s.PojisteniId == pojistka.PojisteniId);               
             if (objFromDb != null)
             {
+                //obrázek vyžaduje speciální kontrolu!
+                if (pojistka.ImageUrl != null)
+                {
+                    objFromDb.ImageUrl = pojistka.ImageUrl;
+                }
+                objFromDb.Nazev = pojistka.Nazev;
                 objFromDb.Podminky = pojistka.Podminky;
-                //_db.SaveChanges(); ! nedávat sem - ukládá se přes UnitOfWork! 
+                objFromDb.Zaloha = pojistka.Zaloha; 
+                objFromDb.Kategorie = pojistka.Kategorie;                             
             }
         }
     }

@@ -12,8 +12,8 @@ using Pojisteni.DataAccess.Data;
 namespace Pojisteni.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211230111753_addDefaultIdentity")]
-    partial class addDefaultIdentity
+    [Migration("20220105103144_pojistkaNazev")]
+    partial class pojistkaNazev
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -226,6 +226,96 @@ namespace Pojisteni.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Pojisteni.Models.Kategorie", b =>
+                {
+                    b.Property<int>("KategorieId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KategorieId"), 1L, 1);
+
+                    b.Property<string>("Typ")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("KategorieId");
+
+                    b.ToTable("Kategories");
+                });
+
+            modelBuilder.Entity("Pojisteni.Models.Pojistka", b =>
+                {
+                    b.Property<int>("PojisteniId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PojisteniId"), 1L, 1);
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("KategorieId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nazev")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Podminky")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<double>("Zaloha")
+                        .HasColumnType("float");
+
+                    b.HasKey("PojisteniId");
+
+                    b.HasIndex("KategorieId");
+
+                    b.ToTable("Pojistky");
+                });
+
+            modelBuilder.Entity("Pojisteni.Models.Pojistnik", b =>
+                {
+                    b.Property<int>("PojistnikId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PojistnikId"), 1L, 1);
+
+                    b.Property<string>("Adresa")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("Jmeno")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("PojisteniId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Prijmeni")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("TelefonCislo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PojistnikId");
+
+                    b.HasIndex("PojisteniId");
+
+                    b.ToTable("Pojistnici");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -275,6 +365,28 @@ namespace Pojisteni.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Pojisteni.Models.Pojistka", b =>
+                {
+                    b.HasOne("Pojisteni.Models.Kategorie", "Kategorie")
+                        .WithMany()
+                        .HasForeignKey("KategorieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Kategorie");
+                });
+
+            modelBuilder.Entity("Pojisteni.Models.Pojistnik", b =>
+                {
+                    b.HasOne("Pojisteni.Models.Pojistka", "Pojistka")
+                        .WithMany()
+                        .HasForeignKey("PojisteniId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pojistka");
                 });
 #pragma warning restore 612, 618
         }

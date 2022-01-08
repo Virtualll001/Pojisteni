@@ -1,47 +1,131 @@
-﻿@model Pojisteni.Models.Pojistka
+﻿@model Pojisteni.Models.ViewModels.PojistkaVM
 
 @{
     var title = "Vytvořit nové pojištění";
 }
 
-<form method="post" asp-action="Upsert">  
-    <input asp-for="PojisteniId" hidden />
+<form method="post" asp-action="Upsert" enctype="multipart/form-data"> @*enctype musí být kvůli obrázku!*@
+    <input asp-for="Pojistka.PojisteniId" hidden />
+    <input asp-for="Pojistka.ImageUrl" hidden />
     <div class="row p-3 border">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        @if (Model.PojisteniId != 0)
+        @if (Model.Pojistka.PojisteniId != 0)
         {
             //EDIT
-            title = "Upravit pojištění";
+            title = "Upravit pojištění";           
         }
         <div class="col-12 border-bottom">
             <h2 class="text-primary">@title</h2>
         </div>
         <div class="col-8 pt-4">
-            <div class="form-group row">
+            <div class="form-group row pb-2">
                 <div class="col-4">
-                    <label asp-for="Podminky"></label>
+                    <label asp-for="Pojistka.Nazev"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Podminky" class="form-control" />
-                    <span asp-validation-for="Podminky" class="text-danger"></span>
+                    <input asp-for="Pojistka.Nazev" class="form-control" />
+                    <span asp-validation-for="Pojistka.Nazev" class="text-danger"></span>
                 </div>
             </div>
+            <div class="form-group row pb-2">
+                <div class="col-4">
+                    <label asp-for="Pojistka.Podminky"></label>
+                </div>
+                <div class="col-8">
+                    <textarea asp-for="Pojistka.Podminky" class="form-control"></textarea>
+                    <span asp-validation-for="Pojistka.Podminky" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row pb-2">
+                <div class="col-4">
+                    <label asp-for="Pojistka.Zaloha"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Pojistka.Zaloha" class="form-control" />
+                    <span asp-validation-for="Pojistka.Zaloha" class="text-danger"></span>
+                </div>
+            </div>
+
+            @*OBRÁZEK!!!*@
+            <div class="form-group row pb-2">
+                <div class="col-4">
+                    <label asp-for="Pojistka.ImageUrl"></label>
+                </div>
+                <div class="col-8">
+                    <input type="file" name="files" id="uploadBox" asp-for="Pojistka.ImageUrl" class="form-control" />
+                   @* <span asp-validation-for="Pojistka.ImageUrl" class="text-danger"></span>*@
+                </div>
+            </div>
+
+            @*DROPDOWN!!!*@
+            <div class="form-group row pb-2">
+                <div class="col-4">
+                    <label asp-for="Pojistka.KategorieId"></label>
+                </div>
+                <div class="col-8">
+
+                    <select asp-for="Pojistka.KategorieId" asp-items="@Model.TypSeznam" class="form-select">
+                        <option disabled selected>*** Typ pojištění: ***</option>
+                    </select>
+                    <span asp-validation-for="Pojistka.KategorieId" class="text-danger"></span>
+
+
+                    @*@Html.DropDownListFor(m=>m.Pojistka.Kategorie, Model.Typ, "*** Typ pojištění: ***",
+                        new{@class="form-control"})
+                        <span asp-validation-for="Pojistka.Kategorie" class="text-danger"></span>*@
+                </div>
+            </div>
+
             <div class="form-group row">
                 <div class="col-8 offset-4 mt-3">
-                    @if (Model.PojisteniId != 0)
+                    @if (Model.Pojistka.PojisteniId != 0)
                     {
-                        <partial name="_EditAndBackToListButton" model="Model.PojisteniId"/>
+                        @*<partial name="_EditAndBackToListButton" model="Model.Pojistka.PojisteniId" />*@
+                        <button type="submit" class="btn btn-primary" style="width:150px">Upravit</button>
                     }
                     else
                     {
-                        <partial name="_CreateAndBackToListButton"/>
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" onclick="return validateInput()" class="btn btn-primary form-control">Vytvořit</button>
+                            </div>
+                            <div class="col">
+                                <a asp-action="Index" class="btn btn-success form-control">Zpět</a>
+                            </div>
+                        </div>
                     }
                 </div>
             </div>
-        </div>
+        </div>     
+
+
+        @if (Model.Pojistka.PojisteniId != 0)
+        {
+            <div class="col-3 pt-4 mx-auto">
+                <img src="@Model.Pojistka.ImageUrl" id="pojistkaImg" />
+            </div>
+        }
+
     </div>
 </form>
 
 @section Scripts{
-    <partial name="_ValidationScriptsPartial"/>
+<partial name="_ValidationScriptsPartial" />
+<script src="https://cdn.tiny.cloud/1/2a6fzjt9uzdw1mmjcjgf8b415mhyre474vr11ps76qidteas/tinymce/5/tinymce.min.js"></script>
+
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        plugins: 'lists',
+        menubar: 'file edit format'
+    });
+
+    function validateInput(){
+        if(document.getElementById("uploadBox").value == ""){
+            swal("Error", "Přidejte prosím ilustraci.", "error");
+            return false;
+        }
+        return true;
+    };
+</script>
 }

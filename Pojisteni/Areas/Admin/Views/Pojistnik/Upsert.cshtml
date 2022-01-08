@@ -1,0 +1,84 @@
+﻿@model Pojisteni.Models.ViewModels.PojistnikVM
+
+@{
+    var title = "Nový pojistník";
+}
+
+<form method="post" asp-action="Upsert">    
+    <div class="row p-3 border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @if (Model.Pojistnik.PojistnikId != 0)
+        {
+            //EDIT
+            title = "Upravit pojistníka";
+            <input type="hidden" asp-for="Pojistnik.PojistnikId" />            
+        }
+        <div class="col-12 border-bottom">
+            <h2 class="text-primary">@title</h2>
+        </div>
+        <div class="col-8 pt-4">
+            <div class="form-group row pb-2">
+                <div class="col-4">
+                    <label asp-for="Pojistnik.Jmeno"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Pojistnik.Jmeno" class="form-control" />
+                    <span asp-validation-for="Pojistnik.Jmeno" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row pb-2">
+                <div class="col-4">
+                    <label asp-for="Pojistnik.Prijmeni"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Pojistnik.Prijmeni" class="form-control" />
+                    <span asp-validation-for="Pojistnik.Prijmeni" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row pb-2">
+                <div class="col-4">
+                    <label asp-for="Pojistnik.Adresa"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Pojistnik.Adresa" class="form-control" />
+                    <span asp-validation-for="Pojistnik.Adresa" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row pb-2">
+                <div class="col-4">
+                    <label asp-for="Pojistnik.TelefonCislo"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Pojistnik.TelefonCislo" class="form-control" />
+                    <span asp-validation-for="Pojistnik.TelefonCislo" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row pb-2">
+                <div class="col-4">
+                    <label asp-for="Pojistnik.Pojistka.Kategorie"></label>
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(m=>m.Pojistnik.PojisteniId, Model.TypyPojisteni, "*** Typ pojištění: ***", 
+                    new{@class="form-control"})            
+                    <span asp-validation-for="Pojistnik.Pojistka.Kategorie" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-8 offset-4 mt-3">
+                    @if (Model.Pojistnik.PojistnikId != 0)
+                    {
+                        <partial name="_EditAndBackToListButton" model="Model.Pojistnik.PojistnikId" />
+                    }
+                    else
+                    {
+                        <partial name="_CreateAndBackToListButton" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+<partial name="_ValidationScriptsPartial" />
+}
