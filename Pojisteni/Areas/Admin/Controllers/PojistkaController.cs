@@ -126,25 +126,25 @@ namespace Pojisteni.Areas.Admin.Controllers
             return View(pojistkaVM);
         }
 
-        //[HttpDelete]
-        //public IActionResult Delete(int id)
-        //{
-        //    var objFromDb = _unitOfWork.Pojistka.Get(id);
-        //    if(objFromDb == null)
-        //    {
-        //        return Json(new { success = false, message = "Mazání se nezdařilo!" });
-        //    }
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            var objFromDb = _unitOfWork.Pojistka.Get(id);
+            if (objFromDb == null)
+            {
+                return Json(new { success = false, message = "Mazání se nezdařilo!" });
+            }
 
-        //    string wwwRootPath = _hostEnvironment.WebRootPath;
-        //    var oldImagePath = Path.Combine(wwwRootPath, objFromDb.ImageUrl.TrimStart('\\'));
-        //    if (System.IO.File.Exists(oldImagePath))
-        //    {
-        //        System.IO.File.Delete(oldImagePath);
-        //    }
-        //    _unitOfWork.Pojistka.Remove(objFromDb);
-        //    _unitOfWork.Save();
-        //    return Json(new { success = true, message= "Mazání proběhlo úspěšně." });
-        //}
+            string wwwRootPath = _hostEnvironment.WebRootPath;
+            var oldImagePath = Path.Combine(wwwRootPath, objFromDb.ImageUrl.TrimStart('\\'));
+            if (System.IO.File.Exists(oldImagePath))
+            {
+                System.IO.File.Delete(oldImagePath);
+            }
+            _unitOfWork.Pojistka.Remove(objFromDb);
+            _unitOfWork.Save();
+            return Json(new { success = true, message = "Mazání proběhlo úspěšně." });
+        }
 
 
         #region API CALLS
@@ -156,22 +156,22 @@ namespace Pojisteni.Areas.Admin.Controllers
             return Json(new { data = allObj });
         }
 
-        [HttpDelete]
-        public IActionResult Delete(int id)
-        {
-            var parameter = new DynamicParameters();
-            parameter.Add("@PojisteniId", id);
-            var objFromDb = _unitOfWork.Pojistka.Get(id);
-            //var objFromDb = _unitOfWork.SP_Call.OneRecord<Pojistka>(SD.Proc_Pojistka_Get, parameter);
-            if (objFromDb == null)
-            {
-                return Json(new { success = false, message = "Mazání se nezdařilo" });
-            }
-            _unitOfWork.Pojistka.Remove(objFromDb);
-            //_unitOfWork.SP_Call.Execute(SD.Proc_Pojistka_Delete, parameter);
-            _unitOfWork.Save();
-            return Json(new { success = true, message = "Pojištění bylo úspěšně odstraněno" });
-        }
+        //[HttpDelete]
+        //public IActionResult Delete(int id)
+        //{
+        //    var parameter = new DynamicParameters();
+        //    parameter.Add("@PojisteniId", id);
+        //    var objFromDb = _unitOfWork.Pojistka.Get(id);
+        //    //var objFromDb = _unitOfWork.SP_Call.OneRecord<Pojistka>(SD.Proc_Pojistka_Get, parameter);
+        //    if (objFromDb == null)
+        //    {
+        //        return Json(new { success = false, message = "Mazání se nezdařilo" });
+        //    }
+        //    _unitOfWork.Pojistka.Remove(objFromDb);
+        //    //_unitOfWork.SP_Call.Execute(SD.Proc_Pojistka_Delete, parameter);
+        //    _unitOfWork.Save();
+        //    return Json(new { success = true, message = "Pojištění bylo úspěšně odstraněno" });
+        //}
         #endregion
     }
 }

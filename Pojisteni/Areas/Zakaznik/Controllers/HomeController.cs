@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Pojisteni.DataAccess.Repository.IRepository;
 using Pojisteni.Models;
 using Pojisteni.Models.ViewModels;
 using System.Diagnostics;
@@ -9,15 +10,18 @@ namespace Pojisteni.Areas.Zakaznik.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
         {
             _logger = logger;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Pojistka> pojisteniSeznam = _unitOfWork.Pojistka.GetAll(includeProperties: "Kategorie");
+            return View(pojisteniSeznam);
         }
 
         public IActionResult Projekt()

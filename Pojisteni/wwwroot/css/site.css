@@ -206,3 +206,17 @@ body {
     border: 1px; 
     width: 100%;
 }
+
+#kartaPojisteni {
+    color: #132437; /*barva pozadí*/
+    border: 1px solid #4c9be8;
+    border-radius: 5px;
+    /*background-color: grey;*/
+}
+.card-body {
+    background-color: white;  
+}
+
+.card-title {
+    font-family: "Segoe UI";
+}

@@ -37,10 +37,9 @@ namespace Pojisteni.Models
         [Display(Name = "Ilustrace")]
         public string ImageUrl { get; set; }
 
-        [Display(Name = "Kategorie")]
-        public int KategorieId { get; set; }
-
         
+        public int KategorieId { get; set; }
+               
         [ForeignKey("KategorieId")]
         [Required(ErrorMessage = "Vyplňte typ pojištění!")]
         [MaxLength(50)]

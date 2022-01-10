@@ -35,8 +35,14 @@
                                 <a class="dropdown-item" asp-area="" asp-controller="" asp-action="Index">Událost</a>
                                 <div class="dropdown-divider"></div>
                                  <a class="dropdown-item text-primary" asp-area="Admin" asp-controller="Pojistka" asp-action="Index">Pjištění</a>
-                                <a class="dropdown-item text-primary" asp-area="Admin" asp-controller="Kategorie" asp-action="Index">Typy pojištění</a>
-                                <a class="dropdown-item text-primary" asp-area="Admin" asp-controller="Pojistnik" asp-action="Index">Pojistník</a>
+                                <a class="dropdown-item text-primary" asp-area="Admin" asp-controller="Kategorie" asp-action="Index">Typy pojištění</a>                                
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pojistník/Společnost</a>
+                            <div class="dropdown-menu"> 
+                                <a class="dropdown-item text-primary" asp-area="Admin" asp-controller="Pojistnik" asp-action="Index">Pojistníci</a>
+                                <a class="dropdown-item text-primary" asp-area="Admin" asp-controller="Company" asp-action="Index">Společnosti</a>
                             </div>
                         </li>
                     </ul>

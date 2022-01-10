@@ -1,0 +1,32 @@
+﻿<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-primary">Seznam společností</h2>
+    </div>
+    <div class="col-6 text-end">
+        <a class="btn btn-primary" asp-action="Upsert"><i class="fas fa-plus"></i> &nbsp; Zapsat novou společnost</a>
+    </div>
+</div>
+
+<br />
+<div class="p-4 border rounded bg-white">
+    <table id="tblData" class="table table-hover" style="width:100%">
+        <thead>
+            <tr class="table-primary" >
+                <th>Jméno</th>
+                <th>Adresa</th>
+                <th>Město</th>
+                <th>Telefon</th>
+                <th>Autorizace</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="text-black">
+        </tbody>
+    </table>
+</div>
+
+
+@section Scripts{
+<script src="~/js/company.js"></script>
+}

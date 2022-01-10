@@ -13,7 +13,10 @@ namespace Pojisteni.DataAccess.Data
 
         public DbSet<Kategorie> Kategories { get; set; }
         public DbSet<Pojistka> Pojistky { get; set; }
-        public DbSet<Pojistnik> Pojistnici { get; set; }        
+        public DbSet<Pojistnik> Pojistnici { get; set; }    
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Company> Companies { get; set; }
+
 
     }
 }
