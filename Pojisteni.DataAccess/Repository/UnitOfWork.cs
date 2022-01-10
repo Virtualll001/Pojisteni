@@ -19,6 +19,7 @@ namespace Pojisteni.DataAccess.Repository
             Pojistka = new PojistkaRepository(_db);
             Pojistnik = new PojistnikRepository(_db);
             Company = new CompanyRepository(_db);
+            ApplicationUser = new ApplicationUserRepository(_db);
         }
 
         public ISP_Call SP_Call { get; private set; }
@@ -26,6 +27,7 @@ namespace Pojisteni.DataAccess.Repository
         public IPojistkaRepository Pojistka { get; private set; }
         public IPojistnikRepository Pojistnik { get; private set; }
         public ICompanyRepository Company { get; private set; }
+        public IApplicationUserRepository ApplicationUser { get; private set; }
 
         public void Dispose()
         {

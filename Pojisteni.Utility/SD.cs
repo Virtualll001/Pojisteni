@@ -14,5 +14,11 @@ namespace Pojisteni.Utility
         public const string Proc_Pojistka_GetAll = "usp_GetPojistky";
         public const string Proc_Pojistka_Update = "usp_UpdatePojistky";
         public const string Proc_Pojistka_Delete = "usp_DeletePojistky";
+
+        public const string Role_User_Indi = "Individual Customer";
+        public const string Role_User_Comp = "Company Customer";
+        public const string Role_Admin = "Admin";
+        public const string Role_Employee = "Employee";
+
     }
 }

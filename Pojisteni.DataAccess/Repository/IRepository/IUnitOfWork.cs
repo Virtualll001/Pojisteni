@@ -11,7 +11,8 @@ namespace Pojisteni.DataAccess.Repository.IRepository
         IKategorieRepository Kategorie { get; }
         IPojistkaRepository Pojistka { get; }
         IPojistnikRepository Pojistnik { get; }
-        ICompanyRepository Company { get; } 
+        ICompanyRepository Company { get; }
+        IApplicationUserRepository ApplicationUser { get; }
         ISP_Call SP_Call { get; }
 
         void Save();
